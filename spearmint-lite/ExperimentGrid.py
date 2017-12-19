@@ -28,7 +28,8 @@ import numpy        as np
 import numpy.random as npr
 
 from Locker        import *
-from sobol_lib     import *
+#from sobol_lib     import *
+from sobol import *
 
 CANDIDATE_STATE = 0
 SUBMITTED_STATE = 1
@@ -186,8 +187,8 @@ class ExperimentGrid:
     
     def _hypercube_grid(self, dims, size):
         # Generate from a sobol sequence
-        sobol_grid = np.transpose(i4_sobol_generate(dims,size,self.seed))
-                
+        #sobol_grid = np.transpose(i4_sobol_generate(dims,size,self.seed))
+        sobol_grid = sobol_generate(dims,size,self.seed)
         return sobol_grid
 
 class Parameter:
@@ -238,8 +239,8 @@ class GridMap:
     # Get a list of candidate experiments generated from a sobol sequence
     def hypercube_grid(self, size, seed):
         # Generate from a sobol sequence
-        sobol_grid = np.transpose(i4_sobol_generate(self.cardinality,size,seed))
-                
+        #sobol_grid = np.transpose(i4_sobol_generate(self.cardinality,size,seed))
+        sobol_grid = sobol_generate(self.cardinality,size,seed)
         return sobol_grid
 
     # Convert a variable to the unit hypercube
