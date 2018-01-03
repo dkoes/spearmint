@@ -29,6 +29,7 @@ import os
 import re
 import collections
 import importlib
+import numpy as np
 
 from ExperimentGrid  import *
 try: import simplejson as json
@@ -77,8 +78,10 @@ def main():
     parser.add_option("--results", dest="results_file",
                       help="Results file name.",
                       type="string", default="results.dat")
+    parser.add_option('--seed',help='numpy seed',default=None)
 
     (options, args) = parser.parse_args()
+
 
     # Otherwise run in controller mode.
     main_controller(options, args)
@@ -91,6 +94,8 @@ def main_controller(options, args):
     work_dir  = os.path.realpath('.')
     expt_name = os.path.basename(expt_dir)
 
+    if options.seed:
+        np.random.seed(int(options.seed))
     if not os.path.exists(expt_dir):
         sys.stderr.write("Cannot find experiment directory '%s'.  Aborting.\n" % (expt_dir))
         sys.exit(-1)
